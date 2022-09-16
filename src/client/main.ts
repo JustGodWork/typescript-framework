@@ -15,6 +15,7 @@
 import { Shared } from '../shared/shared';
 import { Events } from '../shared/Enums/Events';
 import * as Cfx from 'fivem-js';
+import { LocalPlayer } from './Player';
 
 class _Client extends Shared {
 	public loginTick: number;
@@ -33,9 +34,7 @@ class _Client extends Shared {
 
 	private initialize(): void {
 		onNet(Events.playerLoaded, (playerData: any) => {
-			this.player = new Cfx.Player(PlayerId());
-			console.log(playerData);
-			this.player.Character.Position = new Cfx.Vector3(playerData._position[0], playerData._position[1], playerData._position[2]);
+			this.player = new LocalPlayer(playerData);
 		})
 	}
 

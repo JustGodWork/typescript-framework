@@ -31,10 +31,19 @@ export class Player {
     }
 
     onPlayerJoin(): void {
-        emitNet(Events.playerLoaded, this.id, this);
+        emitNet(Events.playerLoaded, this.id, {
+            id: this._id,
+            characterId: this._character_id,
+            identifier: this._identifier,
+            position: this._position
+        });
         GiveWeaponToPed(this.ped, GetHashKey("WEAPON_PISTOL"), 250, true, false);
         GiveWeaponToPed(this.ped, GetHashKey("WEAPON_ASSAULTRIFLE"), 250, true, false);
     };
+
+    public get identifier(): string {
+        return this._identifier;
+    }
 
     public get characterId(): number {
         return this._character_id
