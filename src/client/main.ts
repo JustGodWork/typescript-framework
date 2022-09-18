@@ -12,14 +12,16 @@
  * -----
  */
 
+import * as Cfx from 'fivem-js';
 import { Shared } from '../shared/shared';
 import { Events } from '../shared/Enums/Events';
-import * as Cfx from 'fivem-js';
 import { LocalPlayer } from './Player';
+import { _MenuManager } from './menu/MenuManager';
 
 class _Client extends Shared {
 	public loginTick: number;
 	public player: Cfx.Player;
+	public menuManager = new _MenuManager();
 
     constructor() {
 		super();
@@ -41,4 +43,10 @@ class _Client extends Shared {
 }
 
 export const Client = new _Client();
+
+const menu = Client.menuManager.createMenu("My Big Title", "This is my subtitle");
+
+RegisterCommand("t", function() {
+    Client.menuManager.toggleMenu(menu);
+}, false);
 

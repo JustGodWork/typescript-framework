@@ -27,7 +27,12 @@ export class ConnexionHandler {
             const playerIdentifier = Server.playerManager.getIdentifier(playerId)
             this.playerExists(playerIdentifier, (exist: boolean) => {
                 if (exist) {
-                    this.loadData(playerIdentifier, (playerData) => {
+                    this.loadData(playerIdentifier, (playerData: {
+                        id: number,
+                        characterId: number,
+                        identifier: string,
+                        position: string,
+                    }) => {
                         try {
                             this.createPlayer(playerId, playerData);
                         } catch (e) {
@@ -37,7 +42,12 @@ export class ConnexionHandler {
                 } else {
                     this.registerData(playerIdentifier, (success) => {
                         if (success) {
-                            this.loadData(playerIdentifier, (playerData) => {
+                            this.loadData(playerIdentifier, (playerData: {
+                                id: number,
+                                characterId: number,
+                                identifier: string,
+                                position: string,
+                            }) => {
                                 try {
                                     this.createPlayer(playerId, playerData);
                                 } catch (e) {
@@ -91,7 +101,12 @@ export class ConnexionHandler {
         })
     }
 
-    createPlayer(playerId: number, playerData: any): void {
+    createPlayer(playerId: number, playerData: {
+        id: number,
+        characterId: number,
+        identifier: string,
+        position: string
+    }): void {
         Server.playerManager.addPlayer(new Player(playerId, playerData.id, playerData.identifier, GetPlayerName(playerId), JSON.parse(playerData.position)));
     };
 }

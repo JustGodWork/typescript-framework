@@ -20,7 +20,12 @@ export class LocalPlayer extends Cfx.Player {
     private _character_id: number; 
     private _identifier: string;
 
-    constructor(playerData: any, disableWantedLevel = true) {
+    constructor(playerData: {
+        id: number,
+        characterId: number,
+        identifier: string,
+        position: [number, number, number],
+    }, disableWantedLevel = true) {
         super(PlayerId());
         this._id = playerData.id;
         this._character_id = playerData.characterId;
